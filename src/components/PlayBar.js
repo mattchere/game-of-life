@@ -4,8 +4,12 @@ import '../App.css';
 class PlayBar extends Component {
   render() {
     return (
-      <div>
-        
+      <div className="playbar">
+        <ul className="buttonbar">
+          <li><button>Run</button></li>
+          <li><button>Pause</button></li>
+          <li><button>Clear</button></li>
+        </ul>
       </div>
     );
   }
