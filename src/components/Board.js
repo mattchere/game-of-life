@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Cell from './Cell';
+import Row from './Row';
 
 class Board extends Component {
   render() {
     return (
       <div className="board">
-        {
-          this.props.board.map((e, i1) =>
-           e.map((c, i2) => <Cell key={Number(String(i1) + String(i2))} show={false} />))
-        }
-
-        
+        {this.props.board.map((row, i) => 
+          <Row key={i} row={row} id={i} change={this.props.change} />)}
       </div>
     );
   }

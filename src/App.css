@@ -20,8 +20,13 @@
 }
 
 .board {
-  border: 2px solid black;
-  margin: 5px;
+  border: 2px solid yellow;
+  /* margin: 5px; */
+}
+
+.row {
+  height: 10px;
+  width: 800px;
 }
 
 .cell {
@@ -35,4 +40,3 @@
 .show {
   background-color: red;
 }
-
