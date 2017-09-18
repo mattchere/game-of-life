@@ -8,7 +8,7 @@ class Cell extends Component {
   }
 
   handleClick(event) {
-    this.props.change(event.target);
+    this.props.change(event.target.id);
   }
 
   render() {

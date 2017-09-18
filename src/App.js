@@ -11,18 +11,77 @@ class App extends Component {
       board: new Array(50).fill(undefined).map(v => new Array(70).fill(false))
     }
     this.change = this.change.bind(this);
+    this.checkNeighbours = this.checkNeighbours.bind(this);
+    this.generateNeighbours.bind(this);
   }
 
-  change(target) {
-    const loc = target.id.split(',');
+  change(id) {
+    const loc = id.split(',');
+    const row = Number(loc[0]);
+    const col = Number(loc[1]);
     const newBoard = this.state.board;
-    newBoard[Number(loc[0])][Number([loc[1]])] = true;
+    newBoard[row][col] = 
+      newBoard[row][col] ? false : true;
     this.setState({
       board: newBoard
     })
   }
 
+  checkNeighbours(id) {
+    const loc = id.split(',');
+    const row = Number(loc[0]);
+    const col = Number(loc[1]);
+    const neighbours = this.generateNeighbours(row, col);
+    const n = neighbours.reduce((acc, val) =>
+      this.state.board[val[0]][val[1]] ? acc+1 : acc, 0);
+    console.log(n)
+  }
+
+  generateNeighbours(row, col) {
+    const
+      topleft = [row-1, col-1],
+      topmid = [row-1, col],
+      topright = [row-1, col+1],
+      midleft = [row, col-1],
+      midright = [row, col+1],
+      botleft = [row+1, col-1],
+      botmid = [row+1, col],
+      botright = [row+1, col+1];
+    
+    let neighbours = []
+    if (row > 0) {
+      neighbours.push(topmid);
+      if (col > 0) {
+        neighbours.push(topleft);
+      }
+      if (col < 70) {
+        neighbours.push(topright);
+      }
+    }
+    if (row < 50) {
+      neighbours.push(botmid);
+      if (col > 0) {
+        neighbours.push(botleft);
+      }
+      if (col < 70) {
+        neighbours.push(botright);
+      }
+    }
+    if (col > 0) {
+      neighbours.push(midleft);
+    }
+    if (col < 70) {
+      neighbours.push(midright);
+    }
+    return neighbours;
+
+  }
+
   render() {
+    
+
+
+
     return (
       <div className="App">
         <PlayBar />
