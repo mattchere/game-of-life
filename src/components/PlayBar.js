@@ -6,7 +6,7 @@ class PlayBar extends Component {
     return (
       <div className="playbar">
         <ul className="buttonbar">
-          <li><button>Run</button></li>
+          <li><button onClick={this.props.start}>Run</button></li>
           <li><button>Pause</button></li>
           <li><button>Clear</button></li>
         </ul>

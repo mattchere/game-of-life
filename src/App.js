@@ -11,15 +11,17 @@ class App extends Component {
       board: new Array(50).fill(undefined).map(v => new Array(70).fill(false))
     }
     this.change = this.change.bind(this);
-    this.checkNeighbours = this.checkNeighbours.bind(this);
-    this.generateNeighbours.bind(this);
+    this.livingNeighbours = this.livingNeighbours.bind(this);
+    this.generateNeighbours = this.generateNeighbours.bind(this);
+    this.generateNext = this.generateNext.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
 
   change(id) {
     const loc = id.split(',');
     const row = Number(loc[0]);
     const col = Number(loc[1]);
-    const newBoard = this.state.board;
+    const newBoard = this.state.board.slice();
     newBoard[row][col] = 
       newBoard[row][col] ? false : true;
     this.setState({
@@ -27,14 +29,11 @@ class App extends Component {
     })
   }
 
-  checkNeighbours(id) {
-    const loc = id.split(',');
-    const row = Number(loc[0]);
-    const col = Number(loc[1]);
+  livingNeighbours(row, col) {
     const neighbours = this.generateNeighbours(row, col);
     const n = neighbours.reduce((acc, val) =>
       this.state.board[val[0]][val[1]] ? acc+1 : acc, 0);
-    console.log(n)
+    return n;
   }
 
   generateNeighbours(row, col) {
@@ -77,14 +76,33 @@ class App extends Component {
 
   }
 
+  generateNext() {
+    const newBoard = this.state.board.map((row, i) =>
+      row.map((v, j) => {
+        const n = this.livingNeighbours(i, j);
+        if (v && (n !== 2 || n !== 3)) {
+          return true;
+        }
+        else if (!v && n === 3) {
+          return true;
+        }
+        return false;
+      }))
+    this.setState({
+      board: newBoard
+    })
+  }
+
+  startGame() {
+    console.log("start");
+    this.generateNext();
+  }
+
   render() {
     
-
-
-
     return (
       <div className="App">
-        <PlayBar />
+        <PlayBar start={this.startGame} />
         <Board board={this.state.board} change={this.change} />
         <SettingsBar />
       </div>
