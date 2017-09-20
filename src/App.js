@@ -53,23 +53,23 @@ class App extends Component {
       if (col > 0) {
         neighbours.push(topleft);
       }
-      if (col < 70) {
+      if (col < 69) {
         neighbours.push(topright);
       }
     }
-    if (row < 50) {
+    if (row < 49) {
       neighbours.push(botmid);
       if (col > 0) {
         neighbours.push(botleft);
       }
-      if (col < 70) {
+      if (col < 69) {
         neighbours.push(botright);
       }
     }
     if (col > 0) {
       neighbours.push(midleft);
     }
-    if (col < 70) {
+    if (col < 69) {
       neighbours.push(midright);
     }
     return neighbours;
