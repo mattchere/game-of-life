@@ -8,13 +8,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: new Array(50).fill(undefined).map(v => new Array(70).fill(false))
+      board: new Array(50).fill(undefined).map(v => new Array(70).fill(false)),
+      start: undefined
     }
     this.change = this.change.bind(this);
     this.livingNeighbours = this.livingNeighbours.bind(this);
     this.generateNeighbours = this.generateNeighbours.bind(this);
     this.generateNext = this.generateNext.bind(this);
     this.startGame = this.startGame.bind(this);
+    this.pauseGame = this.pauseGame.bind(this);
+    this.randomBoard = this.randomBoard.bind(this);
+    this.clearBoard = this.clearBoard.bind(this);
   }
 
   change(id) {
@@ -80,7 +84,7 @@ class App extends Component {
     const newBoard = this.state.board.map((row, i) =>
       row.map((v, j) => {
         const n = this.livingNeighbours(i, j);
-        if (v && (n !== 2 || n !== 3)) {
+        if (v && (n === 2 || n === 3)) {
           return true;
         }
         else if (!v && n === 3) {
@@ -94,15 +98,46 @@ class App extends Component {
   }
 
   startGame() {
-    console.log("start");
-    this.generateNext();
+    const interval = setInterval(this.generateNext, 100);
+    this.setState({
+      start: interval
+    })
+  }
+
+  pauseGame() {
+    clearInterval(this.state.start);
+  }
+
+  randomBoard() {
+    const newBoard = this.state.board.map(row =>
+      row.map(v => Math.random() > 0.75 ? true : false));
+    this.setState({
+      board: newBoard
+    })
+  }
+
+  clearBoard() {
+    const newBoard = this.state.board.map(row =>
+      row.map(v => false));
+    this.setState({
+      board: newBoard
+    })
+  }
+
+  componentWillMount() {
+    this.randomBoard();
   }
 
   render() {
     
     return (
       <div className="App">
-        <PlayBar start={this.startGame} />
+        <PlayBar 
+          start={this.startGame} 
+          pause={this.pauseGame} 
+          clear={this.clearBoard}
+          random={this.randomBoard}
+        />
         <Board board={this.state.board} change={this.change} />
         <SettingsBar />
       </div>

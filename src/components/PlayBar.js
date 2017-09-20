@@ -7,8 +7,9 @@ class PlayBar extends Component {
       <div className="playbar">
         <ul className="buttonbar">
           <li><button onClick={this.props.start}>Run</button></li>
-          <li><button>Pause</button></li>
-          <li><button>Clear</button></li>
+          <li><button onClick={this.props.pause}>Pause</button></li>
+          <li><button onClick={this.props.clear}>Clear</button></li>
+          <li><button onClick={this.props.random}>Random</button></li>
         </ul>
       </div>
     );
