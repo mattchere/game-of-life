@@ -1,7 +1,13 @@
+body {
+  background-color: #1F1F1F;
+}
+
 .App {
   border: 2px solid black;
+  border-radius: 20px;
   height: 600px;
-  margin: 0 auto;
+  margin: 40px auto;
+  padding: 20px;
   text-align: center;
   width: 800px;
 }
@@ -20,8 +26,7 @@
 }
 
 .board {
-  border: 2px solid yellow;
-  /* margin: 5px; */
+  margin: 10px auto;
 }
 
 .row {
