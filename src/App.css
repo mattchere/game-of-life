@@ -1,5 +1,7 @@
 body {
   background-color: #1F1F1F;
+  color: white;
+  font-family: 'Lato', sans-serif;
 }
 
 .App {
@@ -44,4 +46,9 @@ body {
 
 .show {
   background-color: red;
+}
+
+.generation {
+  font-size: 20px;
+  margin: 20px;
 }
