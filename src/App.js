@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import PlayBar from './components/PlayBar';
 import Board from './components/Board';
-import SettingsBar from './components/SettingsBar';
+import GenerationBar from './components/GenerationBar';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       board: new Array(50).fill(undefined).map(v => new Array(70).fill(false)),
-      start: undefined
+      start: undefined,
+      generation: 0
     }
     this.change = this.change.bind(this);
     this.livingNeighbours = this.livingNeighbours.bind(this);
@@ -93,7 +94,8 @@ class App extends Component {
         return false;
       }))
     this.setState({
-      board: newBoard
+      board: newBoard,
+      generation: this.state.generation + 1
     })
   }
 
@@ -106,21 +108,28 @@ class App extends Component {
 
   pauseGame() {
     clearInterval(this.state.start);
+    this.setState({
+      start: undefined
+    })
   }
 
   randomBoard() {
     const newBoard = this.state.board.map(row =>
       row.map(v => Math.random() > 0.75 ? true : false));
+    this.pauseGame();
     this.setState({
-      board: newBoard
+      board: newBoard,
+      generation: 0
     })
   }
 
   clearBoard() {
     const newBoard = this.state.board.map(row =>
       row.map(v => false));
+    this.pauseGame();
     this.setState({
-      board: newBoard
+      board: newBoard,
+      generation: 0
     })
   }
 
@@ -139,7 +148,7 @@ class App extends Component {
           random={this.randomBoard}
         />
         <Board board={this.state.board} change={this.change} />
-        <SettingsBar />
+        <GenerationBar gen={this.state.generation} />
       </div>
     );
   }
