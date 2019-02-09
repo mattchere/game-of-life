@@ -14,7 +14,7 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build&&gh-pages -d build"
   },
-  "homepage": "https://mattchere.github.io/game-of-life",
+  "homepage": "https://mattjcheah.github.io/game-of-life",
   "devDependencies": {
     "gh-pages": "^2.0.1"
   },
