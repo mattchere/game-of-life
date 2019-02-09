@@ -141,6 +141,7 @@ class App extends Component {
     
     return (
       <div className="App">
+        <h1 className="heading">Conway's Game of Life</h1>
         <PlayBar 
           start={this.startGame} 
           pause={this.pauseGame} 
